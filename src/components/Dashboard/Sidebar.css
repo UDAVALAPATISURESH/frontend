@@ -1,0 +1,142 @@
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  display: block;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  background: #ffffff;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  border-right: 1px solid #e2e8f0;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  padding: 15px 6px;
+  /* border-bottom: 1px solid #e2e8f0; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.sidebar-header .brand-logo-container {
+  flex: 1;
+  text-align: center;
+}
+
+.sidebar-header .brand-logo {
+  max-width: 100%;
+  height: auto;
+  max-height: 45px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #64748b;
+  line-height: 1;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  color: #1e293b;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-item {
+  margin-bottom: 4px;
+}
+
+.nav-item-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #475569;
+}
+
+.nav-item-header:hover {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+.nav-item-header.active {
+  background-color: #f1f5f9;
+  border-left: 3px solid #667eea;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.nav-icon {
+  font-size: 20px;
+  margin-right: 12px;
+  width: 24px;
+  text-align: center;
+}
+
+.nav-label {
+  flex: 1;
+  font-weight: 500;
+}
+
+
+
+
+@media (min-width: 768px) {
+  .sidebar-overlay {
+    display: none;
+  }
+
+  .sidebar {
+    transform: translateX(0);
+    position: fixed;
+  }
+
+  .dashboard-main {
+    margin-left: 250px;
+  }
+
+  .close-btn {
+    display: none;
+  }
+}
+

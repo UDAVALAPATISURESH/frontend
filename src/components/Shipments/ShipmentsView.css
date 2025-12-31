@@ -1,0 +1,254 @@
+.shipments-view {
+  width: 100%;
+}
+
+.shipments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-left-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-left-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.shipment-count {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.header-right-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.view-toggle {
+  display: flex;
+  background: var(--card-background);
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: var(--shadow);
+}
+
+.view-toggle button {
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text-secondary);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.view-toggle button:hover {
+  background: #f1f5f9;
+}
+
+.view-toggle button.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.add-button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 14px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.add-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.add-button:active {
+  transform: translateY(0);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 20px;
+}
+
+.pagination-button {
+  padding: 10px 20px;
+  background: var(--card-background);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  color: var(--text-primary);
+}
+
+.pagination-button:hover:not(:disabled) {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.access-denied {
+  background: var(--card-background);
+  padding: 60px 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.access-denied h2 {
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  font-size: 28px;
+}
+
+.access-denied p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.access-denied-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-style: italic;
+  margin-top: 12px;
+  max-width: 500px;
+}
+
+.shipments-loading,
+.shipments-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.shipments-error {
+  color: var(--danger-color);
+}
+
+.shipments-error button {
+  margin-top: 16px;
+  padding: 10px 20px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.shipments-empty {
+  background: var(--card-background);
+  padding: 60px 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.shipments-empty h3 {
+  color: var(--text-primary);
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.shipments-empty p {
+  font-size: 16px;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .shipments-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right-section {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
