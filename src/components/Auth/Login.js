@@ -22,6 +22,7 @@ const LOGIN_MUTATION = gql`
 const Login = () => {
   const [loginInput, setLoginInput] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({ loginInput: '', password: '' });
   const { login } = useAuth();
@@ -145,14 +146,24 @@ const Login = () => {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => handleInputChange('password', e.target.value)}
-              placeholder="Enter password"
-              className={fieldErrors.password ? 'input-error' : ''}
-            />
+            <div className="password-input-wrapper">
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => handleInputChange('password', e.target.value)}
+                placeholder="Enter password"
+                className={fieldErrors.password ? 'input-error' : ''}
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? '👁️' : '👁️‍🗨️'}
+              </button>
+            </div>
             {fieldErrors.password && (
               <span className="field-error-message">{fieldErrors.password}</span>
             )}
