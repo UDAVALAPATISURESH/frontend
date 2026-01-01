@@ -26,8 +26,9 @@ const Header = ({ onMenuClick, user, setActiveView }) => {
       </div>
       <div className="header-right">
         <div className="user-menu">
-          <button className="logout-button" onClick={handleLogout} title="Logout">
-            <span className="logout-icon">⏻</span>
+          <button className="logout-button" onClick={handleLogout} title="Logout" aria-label="Logout">
+            <span className="logout-icon">🚪</span>
+            <span className="logout-text">Logout</span>
           </button>
         </div>
       </div>

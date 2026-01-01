@@ -42,3 +42,4 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, title, message, i
 
 export default DeleteConfirmationModal;
 
+
