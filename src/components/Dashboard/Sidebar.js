@@ -66,7 +66,7 @@ const Sidebar = ({ isOpen, onClose, setActiveView, activeView }) => {
                     }}
                   >
                 <span className="nav-icon">👥</span>
-                <span className="nav-label">User Management</span>
+                <span className="nav-label">Admin</span>
                   </div>
             </div>
           )}
