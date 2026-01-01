@@ -5,7 +5,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 
 // Get backend URL from environment or use default
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000').replace(/\/$/, ''); // Remove trailing slash
 const GRAPHQL_URI = `${BACKEND_URL}/graphql`;
 const WS_URI = BACKEND_URL.replace(/^http/, 'ws') + '/graphql';
 
