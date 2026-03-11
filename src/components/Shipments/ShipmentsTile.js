@@ -100,15 +100,31 @@ const ShipmentsTile = ({ shipments, onTileClick, onAction, canEdit = true, canDe
           </div>
 
           <div className="tile-content">
-            <div className="tile-route">
-              <div className="route-point">
-                <span className="route-label">From</span>
-                <span className="route-value">{shipment.origin}</span>
-              </div>
-              <div className="route-arrow">→</div>
-              <div className="route-point">
-                <span className="route-label">To</span>
-                <span className="route-value">{shipment.destination}</span>
+            <div className="tile-route" style={{
+              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+              padding: 16,
+              borderRadius: 12,
+              border: '2px solid #bae6fd',
+              marginBottom: 16
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                <div style={{ flex: 1, textAlign: 'center' }}>
+                  <div style={{ fontSize: 10, color: '#0ea5e9', fontWeight: 600, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                    📍 From
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: '#0c4a6e', wordBreak: 'break-word' }}>
+                    {shipment.origin}
+                  </div>
+                </div>
+                <div style={{ fontSize: 28, color: '#0284c7', fontWeight: 700, flexShrink: 0 }}>→</div>
+                <div style={{ flex: 1, textAlign: 'center' }}>
+                  <div style={{ fontSize: 10, color: '#0ea5e9', fontWeight: 600, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+                    🎯 To
+                  </div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: '#0c4a6e', wordBreak: 'break-word' }}>
+                    {shipment.destination}
+                  </div>
+                </div>
               </div>
             </div>
 

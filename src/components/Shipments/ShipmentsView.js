@@ -30,6 +30,11 @@ const SHIPMENTS_QUERY = gql`
         creatorEmail
         createdAt
         updatedAt
+        currentLocation
+        currentLat
+        currentLng
+        pinCode
+        lastLocationUpdate
       }
       totalCount
       pageInfo {
@@ -60,6 +65,10 @@ const SHIPMENT_ADDED_SUBSCRIPTION = gql`
       creatorEmail
       createdAt
       updatedAt
+      currentLocation
+      currentLat
+      currentLng
+      lastLocationUpdate
     }
   }
 `;
@@ -82,6 +91,10 @@ const SHIPMENT_UPDATED_SUBSCRIPTION = gql`
       creatorEmail
       createdAt
       updatedAt
+      currentLocation
+      currentLat
+      currentLng
+      lastLocationUpdate
     }
   }
 `;

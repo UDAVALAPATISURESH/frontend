@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import { useAuth } from '../../context/AuthContext';
 import './EditUserModal.css';
 
 const UPDATE_USER_MUTATION = gql`
@@ -21,9 +22,11 @@ const AVAILABLE_SCOPES = [
   'DELETE_SHIPMENTS',
   'VIEW_ANALYTICS',
   'VIEW_REPORTS',
+  'MANAGE_USERS',
 ];
 
 const EditUserModal = ({ user, onClose, onSuccess }) => {
+  const { user: currentUser, login } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -32,6 +35,16 @@ const EditUserModal = ({ user, onClose, onSuccess }) => {
     scopes: [],
   });
   const [error, setError] = useState('');
+
+  // Roles current user is allowed to assign
+  const roleOptions = currentUser?.role === 'ADMIN'
+    ? ['EMPLOYEE', 'ADMIN']
+    : ['EMPLOYEE'];
+
+  // Scopes current user is allowed to assign; only real admins can grant MANAGE_USERS
+  const visibleScopes = currentUser?.role === 'ADMIN'
+    ? AVAILABLE_SCOPES
+    : AVAILABLE_SCOPES.filter(scope => scope !== 'MANAGE_USERS');
 
   useEffect(() => {
     if (user) {
@@ -46,7 +59,22 @@ const EditUserModal = ({ user, onClose, onSuccess }) => {
   }, [user]);
 
   const [updateUser, { loading }] = useMutation(UPDATE_USER_MUTATION, {
-    onCompleted: () => {
+    onCompleted: (data) => {
+      const updated = data?.updateUser;
+      // If current user edited themselves, update auth context so scopes/role take effect immediately
+      if (updated && currentUser && String(updated.id) === String(currentUser.id)) {
+        const token = localStorage.getItem('token') || '';
+        login(
+          {
+            id: updated.id,
+            username: updated.username,
+            email: updated.email,
+            role: updated.role,
+            scopes: updated.scopes || [],
+          },
+          token
+        );
+      }
       onSuccess();
     },
     onError: (err) => {
@@ -167,8 +195,11 @@ const EditUserModal = ({ user, onClose, onSuccess }) => {
               }}
               required
             >
-              <option value="EMPLOYEE">Employee</option>
-              <option value="ADMIN">Admin</option>
+              {roleOptions.map((role) => (
+                <option key={role} value={role}>
+                  {role === 'ADMIN' ? 'Admin' : 'Employee'}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -176,7 +207,7 @@ const EditUserModal = ({ user, onClose, onSuccess }) => {
             <div className="form-group">
               <label>Access Scopes (Select permissions for employee)</label>
               <div className="scopes-container">
-                {AVAILABLE_SCOPES.map((scope) => (
+                {visibleScopes.map((scope) => (
                   <label key={scope} className="scope-checkbox">
                     <input
                       type="checkbox"

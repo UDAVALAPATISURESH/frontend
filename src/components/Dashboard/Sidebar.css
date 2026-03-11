@@ -42,15 +42,21 @@
 .sidebar-header .brand-logo-container {
   flex: 1;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
+  padding: 8px 0;
 }
 
 .sidebar-header .brand-logo {
   max-width: 100%;
   height: auto;
-  max-height: 45px;
+  max-height: 55px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
+  width: auto;
 }
 
 .close-btn {

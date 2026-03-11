@@ -32,6 +32,13 @@ const wsLink = new GraphQLWsLink(createClient({
       authorization: token ? `Bearer ${token}` : '',
     };
   },
+  // Make subscriptions resilient (common issue on flaky networks / laptop sleep)
+  retryAttempts: Infinity,
+  retryWait: async (retries) => {
+    // exponential backoff up to 10s
+    const delay = Math.min(1000 * (2 ** Math.min(retries, 4)), 10000);
+    await new Promise((r) => setTimeout(r, delay));
+  },
 }));
 
 // Split link: use WebSocket for subscriptions, HTTP for queries/mutations

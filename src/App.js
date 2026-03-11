@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { ApolloProvider } from '@apollo/client';
 import { client } from './apollo/client';
 import Login from './components/Auth/Login';
+import QRCodePage from './components/Auth/QRCodePage';
+import OTPVerificationPage from './components/Auth/OTPVerificationPage';
 import Dashboard from './components/Dashboard/Dashboard';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import './App.css';
@@ -40,9 +42,16 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
-        <Router>
+        <Router
+          future={{
+            v7_startTransition: true,
+            v7_relativeSplatPath: true,
+          }}
+        >
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/qr-code" element={<QRCodePage />} />
+            <Route path="/verify-otp" element={<OTPVerificationPage />} />
             <Route
               path="/*"
               element={

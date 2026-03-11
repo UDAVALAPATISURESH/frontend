@@ -8,6 +8,7 @@ import UsersView from '../Users/UsersView';
 import AnalyticsView from '../Analytics/AnalyticsView';
 import ReportsView from '../Reports/ReportsView';
 import SettingsView from '../Settings/SettingsView';
+import LiveTrackerView from '../Tracker/LiveTrackerView';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -53,6 +54,7 @@ const Dashboard = () => {
             <ShipmentsView statusFilter={shipmentFilter} />
           )}
           {activeView === 'users' && <UsersView />}
+          {activeView === 'liveTracker' && <LiveTrackerView />}
           {activeView === 'analytics' && <AnalyticsView />}
           {activeView === 'reports' && <ReportsView />}
           {activeView === 'settings' && <SettingsView />}

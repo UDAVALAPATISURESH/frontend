@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import { useAuth } from '../../context/AuthContext';
 import './AddUserModal.css';
 
 const REGISTER_MUTATION = gql`
@@ -23,9 +24,11 @@ const AVAILABLE_SCOPES = [
   'DELETE_SHIPMENTS',
   'VIEW_ANALYTICS',
   'VIEW_REPORTS',
+  'MANAGE_USERS',
 ];
 
 const AddUserModal = ({ onClose, onSuccess }) => {
+  const { user: currentUser } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -34,6 +37,16 @@ const AddUserModal = ({ onClose, onSuccess }) => {
     scopes: [],
   });
   const [error, setError] = useState('');
+
+  // Roles current user is allowed to assign
+  const roleOptions = currentUser?.role === 'ADMIN'
+    ? ['EMPLOYEE', 'ADMIN']
+    : ['EMPLOYEE'];
+
+  // Scopes current user is allowed to assign; only real admins can grant MANAGE_USERS
+  const visibleScopes = currentUser?.role === 'ADMIN'
+    ? AVAILABLE_SCOPES
+    : AVAILABLE_SCOPES.filter(scope => scope !== 'MANAGE_USERS');
 
   const [register, { loading }] = useMutation(REGISTER_MUTATION, {
     onCompleted: () => {
@@ -148,8 +161,11 @@ const AddUserModal = ({ onClose, onSuccess }) => {
               }}
               required
             >
-              <option value="EMPLOYEE">Employee</option>
-              <option value="ADMIN">Admin</option>
+              {roleOptions.map((role) => (
+                <option key={role} value={role}>
+                  {role === 'ADMIN' ? 'Admin' : 'Employee'}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -157,7 +173,7 @@ const AddUserModal = ({ onClose, onSuccess }) => {
             <div className="form-group">
               <label>Access Scopes (Select permissions for employee)</label>
               <div className="scopes-container">
-                {AVAILABLE_SCOPES.map((scope) => (
+                {visibleScopes.map((scope) => (
                   <label key={scope} className="scope-checkbox">
                     <input
                       type="checkbox"

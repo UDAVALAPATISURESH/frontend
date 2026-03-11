@@ -62,12 +62,7 @@ const ShipmentsGrid = ({ shipments, onSort, sort, onAction, canEdit = true, canD
               <th onClick={() => handleSort('trackingNumber')} className="sortable">
                 Tracking Number <SortIcon field="trackingNumber" />
               </th>
-              <th onClick={() => handleSort('origin')} className="sortable">
-                Origin <SortIcon field="origin" />
-              </th>
-              <th onClick={() => handleSort('destination')} className="sortable">
-                Destination <SortIcon field="destination" />
-              </th>
+              <th>Route (Where to Where)</th>
               <th onClick={() => handleSort('status')} className="sortable">
                 Status <SortIcon field="status" />
               </th>
@@ -88,7 +83,7 @@ const ShipmentsGrid = ({ shipments, onSort, sort, onAction, canEdit = true, canD
           <tbody>
             {shipments.length === 0 ? (
               <tr>
-                <td colSpan="10" className="empty-state">
+                <td colSpan="9" className="empty-state">
                   No shipments found
                 </td>
               </tr>
@@ -96,8 +91,21 @@ const ShipmentsGrid = ({ shipments, onSort, sort, onAction, canEdit = true, canD
               shipments.map((shipment) => (
                 <tr key={shipment.id}>
                   <td className="tracking-number">{shipment.trackingNumber}</td>
-                  <td>{shipment.origin}</td>
-                  <td>{shipment.destination}</td>
+                  <td>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '8px 12px',
+                      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+                      borderRadius: 8,
+                      border: '1px solid #bae6fd'
+                    }}>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: '#0c4a6e' }}>📍 {shipment.origin}</span>
+                      <span style={{ fontSize: 16, color: '#0284c7', fontWeight: 700 }}>→</span>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: '#0c4a6e' }}>🎯 {shipment.destination}</span>
+                    </div>
+                  </td>
                   <td>
                     <span className={`status-badge ${getStatusColor(shipment.status)}`}>
                       {shipment.status.replace('_', ' ')}

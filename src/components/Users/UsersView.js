@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { useAuth } from '../../context/AuthContext';
-import { hasScope, SCOPES } from '../../utils/permissions';
+import { hasScope, SCOPES, isAdmin } from '../../utils/permissions';
 import AddUserModal from './AddUserModal';
 import EditUserModal from './EditUserModal';
 import DeleteConfirmationModal from '../Common/DeleteConfirmationModal';
@@ -33,8 +33,8 @@ const UsersView = () => {
   const [deleteError, setDeleteError] = useState('');
   const { loading, error, data, refetch } = useQuery(USERS_QUERY);
   
-  // Permission checks - only admin can manage users
-  const canManageUsers = hasScope(currentUser, SCOPES.MANAGE_USERS);
+  // Permission checks - ADMIN role OR MANAGE_USERS scope
+  const canManageUsers = isAdmin(currentUser) || hasScope(currentUser, SCOPES.MANAGE_USERS);
   const [deleteUser, { loading: deleting }] = useMutation(DELETE_USER_MUTATION, {
     onCompleted: () => {
       refetch();

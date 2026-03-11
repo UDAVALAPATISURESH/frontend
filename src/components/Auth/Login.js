@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
-import { useAuth } from '../../context/AuthContext';
 import './Login.css';
 
 const LOGIN_MUTATION = gql`
@@ -14,6 +13,8 @@ const LOGIN_MUTATION = gql`
         email
         role
         scopes
+        isFirstLogin
+        googleId
       }
     }
   }
@@ -25,14 +26,50 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({ loginInput: '', password: '' });
-  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [loginMutation, { loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       if (data?.login?.token && data?.login?.user) {
-        login(data.login.user, data.login.token);
-        navigate('/dashboard', { replace: true });
+        // Persist MFA context so direct URL navigation/refresh can't bypass flow
+        try {
+          sessionStorage.setItem(
+            'mfa',
+            JSON.stringify({
+              userId: data.login.user.id,
+              userEmail: data.login.user.email,
+              token: data.login.token,
+              isGoogleAuth: false,
+            })
+          );
+        } catch (e) {
+          // If storage is blocked, flow will still work via router state
+        }
+
+        // Check if it's first login
+        if (data.login.user.isFirstLogin) {
+          // First login: Navigate to QR code page for setup
+          navigate('/qr-code', {
+            state: {
+              userId: data.login.user.id,
+              userEmail: data.login.user.email,
+              token: data.login.token,
+              isGoogleAuth: false,
+            },
+            replace: true,
+          });
+        } else {
+          // Subsequent logins: Navigate directly to OTP verification
+          navigate('/verify-otp', {
+            state: {
+              userId: data.login.user.id,
+              userEmail: data.login.user.email,
+              token: data.login.token,
+              isGoogleAuth: false,
+            },
+            replace: true,
+          });
+        }
       } else {
         setError('Invalid response from server');
       }
@@ -116,7 +153,7 @@ const Login = () => {
         <div className="login-header">
           <div className="login-logo-container">
             <img 
-              src="https://shinelogisticsllc.com/wp-content/uploads/2023/01/Asset-109.png" 
+              src="https://res.cloudinary.com/dkjkisdph/image/upload/v1771856045/ChatGPT_Image_Feb_23_2026_07_43_46_PM_jdjg1u.png" 
               alt="Company Logo" 
               className="login-logo"
             />
