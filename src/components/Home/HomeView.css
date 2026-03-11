@@ -11,9 +11,9 @@
 
 .home-stat-card {
   background: var(--card-background, #ffffff);
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   display: flex;
   align-items: center;
   gap: 20px;
@@ -27,9 +27,9 @@
 }
 
 .stat-card-icon {
-  font-size: 48px;
-  width: 80px;
-  height: 80px;
+  font-size: 36px;
+  width: 60px;
+  height: 60px;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -68,9 +68,9 @@
 
 .stat-card-value {
   color: var(--text-primary, #1e293b);
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
-  margin: 0 0 4px 0;
+  margin: 0 0 2px 0;
   line-height: 1;
 }
 
@@ -88,9 +88,9 @@
 
 .home-card {
   background: var(--card-background, #ffffff);
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   border: 1px solid #e2e8f0;
 }
 
@@ -221,9 +221,9 @@
 
 .chart-bar-wrapper {
   flex: 1;
-  height: 24px;
-  background: #e2e8f0;
-  border-radius: 12px;
+  height: 20px;
+  background: #f1f5f9;
+  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -317,4 +317,3 @@
     grid-template-columns: 1fr;
   }
 }
-

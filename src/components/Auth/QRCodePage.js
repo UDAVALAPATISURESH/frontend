@@ -73,7 +73,7 @@ const QRCodePage = () => {
             secret: qrData.secret,
           })
         );
-      } catch (e) {}
+      } catch (e) { }
 
       navigate('/verify-otp', {
         state: {
@@ -87,13 +87,20 @@ const QRCodePage = () => {
     }
   };
 
+  const handleBackToLogin = () => {
+    try {
+      sessionStorage.removeItem('mfa');
+    } catch (e) { }
+    navigate('/login', { replace: true });
+  };
+
   return (
     <div className="first-login-container">
       <div className="first-login-card">
         <div className="first-login-header">
           <div className="first-login-logo-container">
             <img
-              src="https://res.cloudinary.com/dkjkisdph/image/upload/v1771856045/ChatGPT_Image_Feb_23_2026_07_43_46_PM_jdjg1u.png"
+              src="https://res.cloudinary.com/dkjkisdph/image/upload/v1773259356/ChatGPT_Image_Mar_12_2026_01_32_18_AM_uavz08.png"
               alt="Company Logo"
               className="first-login-logo"
             />
@@ -137,13 +144,22 @@ const QRCodePage = () => {
                 <li>Click "Next" to proceed to OTP verification</li>
               </ol>
             </div> */}
-            <button
-              className="next-button"
-              onClick={handleNext}
-              disabled={!qrData}
-            >
-              Next →
-            </button>
+            <div style={{ display: 'flex', gap: '12px', width: '100%' }}>
+              <button
+                className="back-button"
+                onClick={handleBackToLogin}
+              >
+                ← Back
+              </button>
+              <button
+                className="next-button"
+                onClick={handleNext}
+                disabled={!qrData}
+                style={{ flex: 1 }}
+              >
+                Next →
+              </button>
+            </div>
           </div>
         ) : (
           <div className="error-container">

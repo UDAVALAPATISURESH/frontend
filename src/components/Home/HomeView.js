@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { Package, Clock, Truck, CheckCircle } from 'lucide-react';
 import './HomeView.css';
 
 const SHIPMENTS_STATS_QUERY = gql`
@@ -34,7 +35,7 @@ const HomeView = ({ onNavigate }) => {
   }
 
   if (error) {
-    const errorMessage = error.networkError 
+    const errorMessage = error.networkError
       ? 'Network issue'
       : error.message || 'Error loading data';
     return (
@@ -71,7 +72,9 @@ const HomeView = ({ onNavigate }) => {
     <div className="home-view">
       <div className="home-stats-grid">
         <div className="home-stat-card">
-          <div className="stat-card-icon shipments">📦</div>
+          <div className="stat-card-icon shipments">
+            <Package size={32} color="white" />
+          </div>
           <div className="stat-card-content">
             <h3>Total Shipments</h3>
             <p className="stat-card-value">{totalCount}</p>
@@ -80,7 +83,9 @@ const HomeView = ({ onNavigate }) => {
         </div>
 
         <div className="home-stat-card">
-          <div className="stat-card-icon pending">⏳</div>
+          <div className="stat-card-icon pending">
+            <Clock size={32} color="white" />
+          </div>
           <div className="stat-card-content">
             <h3>Pending</h3>
             <p className="stat-card-value">{pendingCount}</p>
@@ -89,7 +94,9 @@ const HomeView = ({ onNavigate }) => {
         </div>
 
         <div className="home-stat-card">
-          <div className="stat-card-icon transit">🚚</div>
+          <div className="stat-card-icon transit">
+            <Truck size={32} color="white" />
+          </div>
           <div className="stat-card-content">
             <h3>In Transit</h3>
             <p className="stat-card-value">{inTransitCount}</p>
@@ -98,7 +105,9 @@ const HomeView = ({ onNavigate }) => {
         </div>
 
         <div className="home-stat-card">
-          <div className="stat-card-icon delivered">✅</div>
+          <div className="stat-card-icon delivered">
+            <CheckCircle size={32} color="white" />
+          </div>
           <div className="stat-card-content">
             <h3>Delivered</h3>
             <p className="stat-card-value">{deliveredCount}</p>
@@ -148,8 +157,8 @@ const HomeView = ({ onNavigate }) => {
                 <div className="chart-bar-item">
                   <div className="chart-bar-label">Pending</div>
                   <div className="chart-bar-wrapper">
-                    <div 
-                      className="chart-bar-fill pending" 
+                    <div
+                      className="chart-bar-fill pending"
                       style={{ width: `${totalCount > 0 ? (pendingCount / totalCount) * 100 : 0}%` }}
                     ></div>
                   </div>
@@ -158,8 +167,8 @@ const HomeView = ({ onNavigate }) => {
                 <div className="chart-bar-item">
                   <div className="chart-bar-label">In Transit</div>
                   <div className="chart-bar-wrapper">
-                    <div 
-                      className="chart-bar-fill transit" 
+                    <div
+                      className="chart-bar-fill transit"
                       style={{ width: `${totalCount > 0 ? (inTransitCount / totalCount) * 100 : 0}%` }}
                     ></div>
                   </div>
@@ -168,8 +177,8 @@ const HomeView = ({ onNavigate }) => {
                 <div className="chart-bar-item">
                   <div className="chart-bar-label">Delivered</div>
                   <div className="chart-bar-wrapper">
-                    <div 
-                      className="chart-bar-fill delivered" 
+                    <div
+                      className="chart-bar-fill delivered"
                       style={{ width: `${totalCount > 0 ? (deliveredCount / totalCount) * 100 : 0}%` }}
                     ></div>
                   </div>

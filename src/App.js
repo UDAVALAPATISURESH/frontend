@@ -6,18 +6,19 @@ import Login from './components/Auth/Login';
 import QRCodePage from './components/Auth/QRCodePage';
 import OTPVerificationPage from './components/Auth/OTPVerificationPage';
 import Dashboard from './components/Dashboard/Dashboard';
+import AIAgentWidget from './components/Common/AIAgentWidget';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import './App.css';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  
+
   if (loading) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         height: '100vh',
         flexDirection: 'column',
         gap: '20px'
@@ -34,7 +35,7 @@ const PrivateRoute = ({ children }) => {
       </div>
     );
   }
-  
+
   return user ? children : <Navigate to="/login" replace />;
 };
 
@@ -61,6 +62,7 @@ function App() {
               }
             />
           </Routes>
+          <AIAgentWidget />
         </Router>
       </AuthProvider>
     </ApolloProvider>

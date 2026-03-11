@@ -31,7 +31,7 @@
 }
 
 .sidebar-header {
-  padding: 15px 6px;
+  padding: 12px 6px 0 6px;
   /* border-bottom: 1px solid #e2e8f0; */
   display: flex;
   justify-content: space-between;
@@ -46,17 +46,17 @@
   justify-content: center;
   align-items: center;
   min-height: 60px;
-  padding: 8px 0;
+  padding: 0;
 }
 
 .sidebar-header .brand-logo {
-  max-width: 100%;
+  width: 100%;
+  max-width: 240px;
   height: auto;
-  max-height: 55px;
+  max-height: none;
   object-fit: contain;
   display: block;
-  margin: 0 auto;
-  width: auto;
+  margin: -30px auto -0px auto;
 }
 
 .close-btn {
@@ -80,7 +80,7 @@
 
 .sidebar-nav {
   flex: 1;
-  padding: 16px 0;
+  padding: 0 0 16px 0;
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
@@ -94,10 +94,12 @@
 .nav-item-header {
   display: flex;
   align-items: center;
-  padding: 12px 20px;
+  padding: 14px 20px;
+  margin: 0 12px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
-  color: #475569;
+  transition: all 0.2s;
+  color: #64748b;
 }
 
 .nav-item-header:hover {
@@ -106,10 +108,10 @@
 }
 
 .nav-item-header.active {
-  background-color: #f1f5f9;
-  border-left: 3px solid #667eea;
+  background: linear-gradient(135deg, #fef2f2 0%, #ffedd5 100%);
   font-weight: 600;
-  color: #667eea;
+  color: var(--primary-color);
+  box-shadow: inset 2px 0 0 var(--primary-color);
 }
 
 .nav-icon {
@@ -122,10 +124,57 @@
 .nav-label {
   flex: 1;
   font-weight: 500;
+  font-size: 15px;
 }
 
 
 
+
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+  margin-top: auto;
+}
+
+.dev-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px dashed #cbd5e1;
+  text-align: center;
+}
+
+.dev-role {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.dev-name {
+  font-size: 14px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.dev-email {
+  font-size: 12px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  word-break: break-all;
+  transition: color 0.2s;
+}
+
+.dev-email:hover {
+  text-decoration: underline;
+  color: #1d4ed8;
+}
 
 @media (min-width: 768px) {
   .sidebar-overlay {
@@ -145,4 +194,3 @@
     display: none;
   }
 }
-

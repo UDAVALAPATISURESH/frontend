@@ -112,10 +112,10 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
-    
+
     const loginInputError = validateField('loginInput', loginInput);
     const passwordError = validateField('password', password);
-    
+
     setFieldErrors({
       loginInput: loginInputError,
       password: passwordError
@@ -125,11 +125,11 @@ const Login = () => {
       return;
     }
 
-    loginMutation({ 
-      variables: { 
-        email: loginInput.trim(), 
-        password 
-      } 
+    loginMutation({
+      variables: {
+        email: loginInput.trim(),
+        password
+      }
     });
   };
 
@@ -139,7 +139,7 @@ const Login = () => {
     } else if (fieldName === 'password') {
       setPassword(value);
     }
-    
+
     // Clear error when user starts typing
     setError('');
     if (fieldErrors[fieldName]) {
@@ -152,9 +152,9 @@ const Login = () => {
       <div className="login-card">
         <div className="login-header">
           <div className="login-logo-container">
-            <img 
-              src="https://res.cloudinary.com/dkjkisdph/image/upload/v1771856045/ChatGPT_Image_Feb_23_2026_07_43_46_PM_jdjg1u.png" 
-              alt="Company Logo" 
+            <img
+              src="https://res.cloudinary.com/dkjkisdph/image/upload/v1773259356/ChatGPT_Image_Mar_12_2026_01_32_18_AM_uavz08.png"
+              alt="Company Logo"
               className="login-logo"
             />
           </div>

@@ -49,7 +49,7 @@ const OTPVerificationPage = () => {
     // Persist (so refresh doesn't break the flow)
     try {
       sessionStorage.setItem('mfa', JSON.stringify(mfa));
-    } catch (e) {}
+    } catch (e) { }
   }, [userId, token, navigate]);
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -61,7 +61,7 @@ const OTPVerificationPage = () => {
       if (data?.verifyOTP?.token && data?.verifyOTP?.user) {
         try {
           sessionStorage.removeItem('mfa');
-        } catch (e) {}
+        } catch (e) { }
         login(data.verifyOTP.user, data.verifyOTP.token);
         navigate('/dashboard', { replace: true });
       } else {
@@ -137,7 +137,7 @@ const OTPVerificationPage = () => {
   };
 
   const handleBack = () => {
-    // Only show back button if we have a secret (first-time login)
+    // If we have a secret, they were just on the QR code page
     if (secret) {
       navigate('/qr-code', {
         state: {
@@ -148,7 +148,10 @@ const OTPVerificationPage = () => {
         },
       });
     } else {
-      // For subsequent logins, go back to login page
+      // For standard logins, clear storage and go directly to login page
+      try {
+        sessionStorage.removeItem('mfa');
+      } catch (e) { }
       navigate('/login', { replace: true });
     }
   };
@@ -159,7 +162,7 @@ const OTPVerificationPage = () => {
         <div className="first-login-header">
           <div className="first-login-logo-container">
             <img
-              src="https://res.cloudinary.com/dkjkisdph/image/upload/v1771856045/ChatGPT_Image_Feb_23_2026_07_43_46_PM_jdjg1u.png"
+              src="https://res.cloudinary.com/dkjkisdph/image/upload/v1773259356/ChatGPT_Image_Mar_12_2026_01_32_18_AM_uavz08.png"
               alt="Company Logo"
               className="first-login-logo"
             />
@@ -168,8 +171,8 @@ const OTPVerificationPage = () => {
           <p className="first-login-subtitle">
             {secret
               ? (isGoogleAuth
-                  ? 'Enter the 6-digit code from your Google Authenticator app'
-                  : 'Enter the 6-digit code from your authenticator app')
+                ? 'Enter the 6-digit code from your Google Authenticator app'
+                : 'Enter the 6-digit code from your authenticator app')
               : 'Enter the 6-digit code from your authenticator app to continue'}
           </p>
         </div>
@@ -202,21 +205,19 @@ const OTPVerificationPage = () => {
           </div>
 
           <div className="otp-actions">
-            {secret && (
-              <button
-                type="button"
-                className="back-button"
-                onClick={handleBack}
-                disabled={loading}
-              >
-                ← Back
-              </button>
-            )}
+            <button
+              type="button"
+              className="back-button"
+              onClick={handleBack}
+              disabled={loading}
+            >
+              ← Back
+            </button>
             <button
               type="submit"
               className="verify-button"
               disabled={loading || otp.join('').length !== 6}
-              style={secret ? {} : { width: '100%' }}
+              style={{ flex: 1 }}
             >
               {loading ? 'Verifying...' : 'Verify OTP'}
             </button>
